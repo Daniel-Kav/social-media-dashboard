@@ -5,6 +5,7 @@ let modeDark = document.getElementById('dark-button')
 const slider = document.getElementById('slider')
 let wrapper = document.getElementsByClassName('card-wrapper')
 
+//consuming the github API
 
 
 
@@ -69,21 +70,3 @@ function lightCardMode(){
     changeTextColors(['.followers-number', '.title', '.page-update'],['var(--VeryDarkBlueText)'])
 }
 
-// consuming the github api
-const githubUsername = 'daniel-kav';
-const followersCountElement = document.getElementById('followersCount');
-
-fetch(`https://api.github.com/users/${githubUsername}`)
-  .then(response => response.json())
-  .then(data => {
-    const followersCount = data.followers;
-    followersCountElement.textContent = `You have ${followersCount} followers on GitHub.`;
-  })
-  .catch(error => {
-    console.error('Error fetching GitHub data:', error);
-    followersCountElement.textContent = 'Failed to load followers count.';
-  });
-
-let userName = document.querySelector('.user-name');
-let followers = document.querySelector('.user-followers');
-userName.innerHTML = `@${user.name}`;
