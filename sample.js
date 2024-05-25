@@ -1,36 +1,54 @@
+const OAuth = require('oauth-1.0a');
+const crypto = require('crypto');
 const fetch = require('node-fetch');
 
-// Your Twitter API credentials
-const BEARER_TOKEN = "AAAAAAAAAAAAAAAAAAAAAL2ttwEAAAAAGXd0FkWX%2Fk9rJ71ZrcDy3BksjvQ%3DEAEJcf821Fxzl0HvUOComDMNIvPUUkiklezuoh6QfYegOEI71i";
+const twitterCredentials = {
+    consumer_key: "Tc1hnj2TtH268sc2CvwypzpRI",
+    consumer_secret: "sxCEFNUwTHIMaDiEqXNkAm5rpMXzJoqwofVNAfPWX9ZklTa5Yl",
+    access_token: "1397456020264341506-Ztkthc0CIkCAx7TdQEUNj2El2SzemO",
+    access_token_secret: "dZLppievgHqpZodf8vS9VIIY2KbkuEUK2HLkg7ViP6q0I"
+};
 
-async function getTwitterUserInfo() {
-    const url = "https://api.twitter.com/2/users/me";
-    const headers = {
-        "Authorization": `Bearer ${BEARER_TOKEN}`
+function getTwitterFollowerCount() {
+    const oauth = OAuth({
+        consumer: {
+            key: twitterCredentials.consumer_key,
+            secret: twitterCredentials.consumer_secret
+        },
+        signature_method: 'HMAC-SHA1',
+        hash_function(base_string, key) {
+            return crypto.createHmac('sha1', key).update(base_string).digest('base64');
+        }
+    });
+
+    const token = {
+        key: twitterCredentials.access_token,
+        secret: twitterCredentials.access_token_secret
     };
 
-    try {
-        const response = await fetch(url, { headers });
-        if (!response.ok) {
-            throw new Error(`Request failed with status ${response.status}`);
+    const request_data = {
+        url: 'https://api.twitter.com/1.1/users/show.json?screen_name=kelvin_kitonyo',
+        method: 'GET'
+    };
+
+    const request_options = {
+        method: request_data.method,
+        headers: oauth.toHeader(oauth.authorize(request_data, token)),
+    };
+
+    return fetch(request_data.url, request_options)
+        .then(response => response.json())
+        .then(data => data.followers_count)
+        .catch(error => {
+            console.error('Error fetching Twitter follower count:', error);
+            return null;
+        });
+}
+
+// Example usage:
+getTwitterFollowerCount()
+    .then(followerCount => {
+        if (followerCount !== null) {
+            console.log(`You have ${followerCount} followers on Twitter.`);
         }
-
-        const data = await response.json();
-        const username = data.data.username;
-        const followers_count = data.data.public_metrics.followers_count;
-
-        return { username, followers_count };
-    } catch (error) {
-        console.error("Error fetching Twitter user info:", error);
-    }
-}
-
-async function main() {
-    const userInfo = await getTwitterUserInfo();
-    if (userInfo) {
-        console.log(`Username: ${userInfo.username}`);
-        console.log(`Followers count: ${userInfo.followers_count}`);
-    }
-}
-
-main();
+    });

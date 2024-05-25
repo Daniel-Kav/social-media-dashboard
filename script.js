@@ -6,6 +6,28 @@ const slider = document.getElementById('slider')
 let wrapper = document.getElementsByClassName('card-wrapper')
 
 //consuming the github API
+
+
+username = 'daniel-kav';
+
+async function getGithubFollowerCount(username) {
+    try {
+        const response = await fetch('https://api.github.com/users/daniel-kav');
+        if (!response.ok) {
+            throw new Error(`Failed to retrieve data: ${response.status}`);
+        }
+        const data = await response.json();
+        const followerCount = data.followers;
+        return followerCount;
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+}
+getGithubFollowerCount();
+
+
+
 async function displayFollowerCounts() {
   try {
     const response = await fetch('http://localhost:3000/followers');
