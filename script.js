@@ -68,6 +68,8 @@ fetch('http://localhost:3000/cards')
     
     // Use the Twitter card data as needed
     document.getElementById('twitteruname').innerHTML = twitterCard.username;
+    document.getElementById('twittercount').innerHTML = twitterCard.follower_count;
+    document.getElementById('twitterupdate').innerHTML = twitterCard.today_update;
     console.log(instagramCard);
   })
   .catch(error => {
