@@ -30,7 +30,7 @@ getGithubFollowerCount();
 
 async function displayFollowerCounts() {
   try {
-    const response = await fetch('http://localhost:3000/followers');
+    const response = await fetch('http://localhost:3000/cards');
     if (!response.ok) {
       throw new Error('Network response was not ok ' + response.statusText);
     }
@@ -55,6 +55,24 @@ async function displayFollowerCounts() {
 
 // Call the function to display the follower counts
 displayFollowerCounts();
+
+//consuming the json server data
+fetch('http://localhost:3000/cards')
+  .then(response => response.json())
+  .then(data => {
+    // Filter the data to get the Twitter card
+    const twitterCard = data.find(card => card.platform === 'twitter');
+    const instagramCard = data.find(card => card.platform === 'instagram');
+    const facebookCard = data.find(card => card.platform === 'facebook');
+    const youtubeCard = data.find(card => card.platform === 'youtube');
+    
+    // Use the Twitter card data as needed
+    document.getElementById('twitteruname').innerHTML = twitterCard.username;
+    console.log(instagramCard);
+  })
+  .catch(error => {
+    console.error('Error fetching Twitter card data:', error);
+  });
 
 
 

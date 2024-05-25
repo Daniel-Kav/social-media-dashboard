@@ -1,16 +1,82 @@
 {
-  "followers": {
-    "twitter": {
-      "username": "DanielK",
-      "count": 1500
+  "header": {
+    "title": "Social Media Dashboard",
+    "total_followers": "23,004"
+  },
+  "cards": [
+    {
+      "platform": "facebook",
+      "username": "@nathanf",
+      "follower_count": "1987",
+      "today_update": "4 Today"
     },
-    "instagram": {
-      "username": "DanielK",
-      "count": 2500
+    {
+      "platform": "twitter",
+      "username": "@dan_kavatha",
+      "follower_count": "1044",
+      "today_update": "99 Today"
     },
-    "facebook": {
-      "username": "DanielK",
-      "count": 2000
+    {
+      "platform": "instagram",
+      "username": "@realnathanf",
+      "follower_count": "11k",
+      "today_update": "1099 Today"
+    },
+    {
+      "platform": "youtube",
+      "username": "Nathan F.",
+      "follower_count": "8239",
+      "today_update": "144 Today"
     }
-  }
+  ],
+  "overview_today": [
+    {
+      "metric": "Page Views",
+      "update": "87",
+      "platform": "facebook",
+      "percent_change": "3%"
+    },
+    {
+      "metric": "Likes",
+      "update": "52",
+      "platform": "facebook",
+      "percent_change": "2%"
+    },
+    {
+      "metric": "Likes",
+      "update": "5462",
+      "platform": "instagram",
+      "percent_change": "2257%"
+    },
+    {
+      "metric": "Profile Views",
+      "update": "52k",
+      "platform": "instagram",
+      "percent_change": "1375%"
+    },
+    {
+      "metric": "Retweets",
+      "update": "117",
+      "platform": "twitter",
+      "percent_change": "303%"
+    },
+    {
+      "metric": "Likes",
+      "update": "507",
+      "platform": "twitter",
+      "percent_change": "553%"
+    },
+    {
+      "metric": "Likes",
+      "update": "107",
+      "platform": "youtube",
+      "percent_change": "19%"
+    },
+    {
+      "metric": "Total Views",
+      "update": "1407",
+      "platform": "youtube",
+      "percent_change": "12%"
+    }
+  ]
 }
