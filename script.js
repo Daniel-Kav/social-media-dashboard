@@ -12,7 +12,7 @@ username = 'daniel-kav';
 
 async function getGithubFollowerCount(username) {
     try {
-        const response = await fetch('https://api.github.com/users/daniel-kav');
+        const response = await fetch(`https://api.github.com/users/${username}`);
         if (!response.ok) {
             throw new Error(`Failed to retrieve data: ${response.status}`);
         }
@@ -24,37 +24,28 @@ async function getGithubFollowerCount(username) {
         return null;
     }
 }
-getGithubFollowerCount();
+// getGithubFollowerCount();
+// console.log(getGithubFollowerCount());
 
+// handling the header
+fetch('http://localhost:3000/header')
+  .then(response => response.json())
+  .then(data => {
+  
+    const headerinfo = data.title ;
+    document.getElementById('header').innerHTML = `
+      <div class="header">
+          <h1 class="title light">${data.title}</h1>
+          <p class="total-followers">Total Followers: ${data.total_followers}</p>
+          <hr class="solid">
+        </div>`
+    
+    console.log(headerinfo);
+  })
+  .catch(error => {
+    console.error('Error fetching Twitter card data:', error);
+  });
 
-
-async function displayFollowerCounts() {
-  try {
-    const response = await fetch('http://localhost:3000/cards');
-    if (!response.ok) {
-      throw new Error('Network response was not ok ' + response.statusText);
-    }
-    const data = await response.json();
-
-    let twitterUser = document.getElementById('twitteruname');
-    let instaUser = document.getElementById('instauname');
-    let facebookUser = document.getElementById('fbuname');
-    twitterUser.innerHTML = data.twitter.username;
-    instaUser.innerHTML = data.instagram.username;
-    facebookUser.innerHTML = data.facebook.username;
-
-    let fbfollowers = document.getElementById('fbfollow')
-
-    console.log(`Twitter: Username: ${data.twitter.username}, Followers: ${data.twitter.count}`);
-    console.log(`Instagram: Username: ${data.instagram.username}, Followers: ${data.instagram.count}`);
-    console.log(`Facebook: Username: ${data.facebook.username}, Followers: ${data.facebook.count}`);
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
-}
-
-// Call the function to display the follower counts
-displayFollowerCounts();
 
 //consuming the json server data
 fetch('http://localhost:3000/cards')
@@ -88,8 +79,22 @@ fetch('http://localhost:3000/cards')
     
   })
   .catch(error => {
+    console.error('Error fetching  card data:', error);
+  });
+
+fetch('http://localhost:3000/overview_today')
+  .then(response => response.json())
+  .then(data => {
+    // Filter the data to get the Twitter card
+    const pageviews = data[1];
+    
+    // Use the Twitter card data as needed
+    console.log(pageviews);
+  })
+  .catch(error => {
     console.error('Error fetching Twitter card data:', error);
   });
+
 
 
 

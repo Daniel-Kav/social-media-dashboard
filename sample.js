@@ -45,7 +45,7 @@ function getTwitterFollowerCount() {
         });
 }
 
-// Example usage:
+
 getTwitterFollowerCount()
     .then(followerCount => {
         if (followerCount !== null) {
