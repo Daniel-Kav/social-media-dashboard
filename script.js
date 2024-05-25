@@ -60,7 +60,7 @@ displayFollowerCounts();
 fetch('http://localhost:3000/cards')
   .then(response => response.json())
   .then(data => {
-    // Filter the data to get the Twitter card
+    // Filter the data to get the specific  card
     const twitterCard = data.find(card => card.platform === 'twitter');
     const instagramCard = data.find(card => card.platform === 'instagram');
     const facebookCard = data.find(card => card.platform === 'facebook');
@@ -70,7 +70,15 @@ fetch('http://localhost:3000/cards')
     document.getElementById('twitteruname').innerHTML = twitterCard.username;
     document.getElementById('twittercount').innerHTML = twitterCard.follower_count;
     document.getElementById('twitterupdate').innerHTML = twitterCard.today_update;
+
+    //using the insta card
+    document.getElementById('instauname').innerHTML = instagramCard.username;
+    document.getElementById('instafollowcount').innerHTML = instagramCard.follower_count;
+    document.getElementById('instaupdate').innerHTML = instagramCard.today_update;
+
+
     console.log(instagramCard);
+    console.log('instagramCard');
   })
   .catch(error => {
     console.error('Error fetching Twitter card data:', error);
