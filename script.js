@@ -76,9 +76,16 @@ fetch('http://localhost:3000/cards')
     document.getElementById('instafollowcount').innerHTML = instagramCard.follower_count;
     document.getElementById('instaupdate').innerHTML = instagramCard.today_update;
 
+    // USING THE FACEBOOK CARD DATA
+    document.getElementById('fbuname').innerHTML = facebookCard.username;
+    document.getElementById('fbfollow').innerHTML = facebookCard.follower_count;
+    document.getElementById('fbupdate').innerHTML = facebookCard.today_update;
 
-    console.log(instagramCard);
-    console.log('instagramCard');
+    // USING THE youtube card data
+    document.getElementById('ytuname').innerHTML = youtubeCard.username;
+    document.getElementById('ytfollow').innerHTML = youtubeCard.follower_count;
+    document.getElementById('ytupdate').innerHTML = youtubeCard.today_update;
+    
   })
   .catch(error => {
     console.error('Error fetching Twitter card data:', error);
