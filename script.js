@@ -6,6 +6,33 @@ const slider = document.getElementById('slider')
 let wrapper = document.getElementsByClassName('card-wrapper')
 
 //consuming the github API
+async function displayFollowerCounts() {
+  try {
+    const response = await fetch('http://localhost:3000/followers');
+    if (!response.ok) {
+      throw new Error('Network response was not ok ' + response.statusText);
+    }
+    const data = await response.json();
+
+    let twitterUser = document.getElementById('twitteruname');
+    let instaUser = document.getElementById('instauname');
+    let facebookUser = document.getElementById('fbuname');
+    twitterUser.innerHTML = data.twitter.username;
+    instaUser.innerHTML = data.instagram.username;
+    facebookUser.innerHTML = data.facebook.username;
+
+    let fbfollowers = document.getElementById('fbfollow')
+
+    console.log(`Twitter: Username: ${data.twitter.username}, Followers: ${data.twitter.count}`);
+    console.log(`Instagram: Username: ${data.instagram.username}, Followers: ${data.instagram.count}`);
+    console.log(`Facebook: Username: ${data.facebook.username}, Followers: ${data.facebook.count}`);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+}
+
+// Call the function to display the follower counts
+displayFollowerCounts();
 
 
 
