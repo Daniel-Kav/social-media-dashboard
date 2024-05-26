@@ -5,29 +5,59 @@ let modeDark = document.getElementById('dark-button')
 const slider = document.getElementById('slider')
 let wrapper = document.getElementsByClassName('card-wrapper')
 
+//consuming the instagram API
+
+function getInstagramUserInfo(access_token) {
+    fetch(`https://graph.instagram.com/me?fields=username,followers_count&access_token=${access_token}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const followerCount = data.followers_count !== undefined ? data.followers_count : '028';
+
+            document.getElementById('instauname').innerHTML = data.username;
+            document.getElementById('instafollowcount').innerHTML = followerCount;
+            console.log("Username:", data.username);
+            console.log("Follower Count:", followerCount);
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+}
+
+// Call the function with your access token
+const access_token = 'IGQWRPWW1kM1dtM0lMMlI3TC1rbTN3MDRySDRGVFk2aEFnWjVvNXVzX0JQOWU4UFdCSWJZAUHJSa3plLW5qdklhTkJZAMzJ1TWJ5YVBuQk1MV0NqRThzNjdTN2psczdMTmU5dXBjNUp3QkdiRXJwVVNKVmNlN1pfM0EZD';
+getInstagramUserInfo(access_token);
+
+
 //consuming the github API
-
-
-username = 'daniel-kav';
-
-async function getGithubFollowerCount(username) {
+async function getGitHubFollowerCount(username) {
     try {
         const response = await fetch(`https://api.github.com/users/${username}`);
+
         if (!response.ok) {
-            throw new Error(`Failed to retrieve data: ${response.status}`);
+            throw new Error('Network response was not ok');
         }
-        const data = await response.json();
-        const followerCount = data.followers;
-        return followerCount;
+
+        const userData = await response.json();
+        const followerCount = userData.followers;
+        document.getElementById('fbuname').innerHTML = `${username}`;
+        document.getElementById('fbfollow').innerHTML = userData.followers;
+
+        console.log(`The follower count of ${username} on GitHub is: ${followerCount}`);
     } catch (error) {
-        console.error(error);
-        return null;
+        console.error('Error fetching data:', error.message);
     }
 }
-// getGithubFollowerCount();
-// console.log(getGithubFollowerCount());
 
-// handling the header
+const username = 'daniel-kav';
+getGitHubFollowerCount(username);
+
+
+// handling the header using json server
 fetch('http://localhost:3000/header')
   .then(response => response.json())
   .then(data => {
@@ -61,15 +91,14 @@ fetch('http://localhost:3000/cards')
     document.getElementById('twitterupdate').innerHTML = twitterCard.today_update;
 
     //using the insta card
-    document.getElementById('instauname').innerHTML = instagramCard.username;
-    document.getElementById('instafollowcount').innerHTML = instagramCard.follower_count;
+    // document.getElementById('instauname').innerHTML = instagramCard.username;
+    // document.getElementById('instafollowcount').innerHTML = instagramCard.follower_count;
     document.getElementById('instaupdate').innerHTML = instagramCard.today_update;
 
     // USING THE FACEBOOK CARD DATA
-    document.getElementById('fbuname').innerHTML = facebookCard.username;
-    document.getElementById('fbfollow').innerHTML = facebookCard.follower_count;
+    // document.getElementById('fbuname').innerHTML = facebookCard.username;
+    // document.getElementById('fbfollow').innerHTML = facebookCard.follower_count;
     document.getElementById('fbupdate').innerHTML = facebookCard.today_update;
-
     // USING THE youtube card data
     document.getElementById('ytuname').innerHTML = youtubeCard.username;
     document.getElementById('ytfollow').innerHTML = youtubeCard.follower_count;
