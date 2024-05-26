@@ -99,6 +99,8 @@ fetch('http://localhost:3000/cards')
     // document.getElementById('fbuname').innerHTML = facebookCard.username;
     // document.getElementById('fbfollow').innerHTML = facebookCard.follower_count;
     document.getElementById('fbupdate').innerHTML = facebookCard.today_update;
+    document.getElementById('fbupdate').innerHTML = facebookCard.today_update;
+    console.log(facebookCard.today_update);
     // USING THE youtube card data
     document.getElementById('ytuname').innerHTML = youtubeCard.username;
     document.getElementById('ytfollow').innerHTML = youtubeCard.follower_count;
