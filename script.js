@@ -20,8 +20,9 @@ function getInstagramUserInfo(access_token) {
 
             document.getElementById('instauname').innerHTML = data.username;
             document.getElementById('instafollowcount').innerHTML = followerCount;
-            console.log("Username:", data.username);
-            console.log("Follower Count:", followerCount);
+            // console.log("Username:", data.username);
+            // console.log("Follower Count:", followerCount);
+            document.querySelector('.today-update').innerHTML ='002 Today';
         })
         .catch(error => {
             console.error('Error fetching data:', error);
@@ -46,7 +47,7 @@ async function getGitHubFollowerCount(username) {
         const followerCount = userData.followers;
         document.getElementById('fbuname').innerHTML = `${username}`;
         document.getElementById('fbfollow').innerHTML = userData.followers;
-        document.getElementById('fbupdate').innerHTML ='002 Today';
+        
 
         console.log(`The follower count of ${username} on GitHub is: ${followerCount}`);
     } catch (error) {
@@ -80,10 +81,9 @@ fetch('http://localhost:3000/cards')
   .then(data => {
     // Filter the data to get the specific  card
     const twitterCard = data.find(card => card.platform === 'twitter');
-    const facebookCard = data.find(card => card.platform === 'facebook');
 
     const instagramCard = data.find(card => card.platform === 'instagram');
-    // const facebookCard = data.find(card => card.platform === 'facebook');
+    const facebookCard = data.find(card => card.platform === 'facebook');
     const youtubeCard = data.find(card => card.platform === 'youtube');
     
     // Use the Twitter card data as needed
@@ -94,6 +94,7 @@ fetch('http://localhost:3000/cards')
     //using the insta card
     // document.getElementById('instauname').innerHTML = instagramCard.username;
     // document.getElementById('instafollowcount').innerHTML = instagramCard.follower_count;
+    
     document.getElementById('instaupdate').innerHTML = instagramCard.today_update;
 
     
