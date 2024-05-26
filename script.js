@@ -7,6 +7,28 @@ let wrapper = document.getElementsByClassName('card-wrapper')
 
 //consuming the instagram API
 
+// function getInstagramUserInfo(access_token) {
+//     fetch(`https://graph.instagram.com/me?fields=username,followers_count&access_token=${access_token}`)
+//         .then(response => {
+//             if (!response.ok) {
+//                 throw new Error('Network response was not ok');
+//             }
+//             return response.json();
+//         })
+//         .then(data => {
+//             const followerCount = data.followers_count !== undefined ? data.followers_count : '028';
+
+//             document.getElementById('instauname').innerHTML = data.username;
+//             document.getElementById('instafollowcount').innerHTML = followerCount;
+//             // console.log("Username:", data.username);
+//             // console.log("Follower Count:", followerCount);
+//             document.querySelector('.today-update').innerHTML ='002 Today';
+//         })
+//         .catch(error => {
+//             console.error('Error fetching data:', error);
+//         });
+// }
+
 function getInstagramUserInfo(access_token) {
     fetch(`https://graph.instagram.com/me?fields=username,followers_count&access_token=${access_token}`)
         .then(response => {
@@ -18,14 +40,16 @@ function getInstagramUserInfo(access_token) {
         .then(data => {
             const followerCount = data.followers_count !== undefined ? data.followers_count : '028';
 
-            document.getElementById('instauname').innerHTML = data.username;
+            document.getElementById('instauname').innerHTML = data.username || 'Default Username';
             document.getElementById('instafollowcount').innerHTML = followerCount;
-            // console.log("Username:", data.username);
-            // console.log("Follower Count:", followerCount);
-            document.querySelector('.today-update').innerHTML ='002 Today';
+            document.querySelector('.today-update').innerHTML = '002 Today';
         })
         .catch(error => {
             console.error('Error fetching data:', error);
+            // If there's an error, set default values for username and follower count
+            document.getElementById('instauname').innerHTML = 'KavathaDaniel';
+            document.getElementById('instafollowcount').innerHTML = '028';
+            document.querySelector('.today-update').innerHTML = '002 Today';
         });
 }
 
