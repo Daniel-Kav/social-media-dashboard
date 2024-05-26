@@ -46,6 +46,7 @@ async function getGitHubFollowerCount(username) {
         const followerCount = userData.followers;
         document.getElementById('fbuname').innerHTML = `${username}`;
         document.getElementById('fbfollow').innerHTML = userData.followers;
+        document.getElementById('fbupdate').innerHTML ='002 Today';
 
         console.log(`The follower count of ${username} on GitHub is: ${followerCount}`);
     } catch (error) {
@@ -95,12 +96,7 @@ fetch('http://localhost:3000/cards')
     // document.getElementById('instafollowcount').innerHTML = instagramCard.follower_count;
     document.getElementById('instaupdate').innerHTML = instagramCard.today_update;
 
-    // USING THE FACEBOOK CARD DATA
-    // document.getElementById('fbuname').innerHTML = facebookCard.username;
-    // document.getElementById('fbfollow').innerHTML = facebookCard.follower_count;
-    document.getElementById('fbupdate').innerHTML = facebookCard.today_update;
-    document.getElementById('fbupdate').innerHTML = facebookCard.today_update;
-    console.log(facebookCard.today_update);
+    
     // USING THE youtube card data
     document.getElementById('ytuname').innerHTML = youtubeCard.username;
     document.getElementById('ytfollow').innerHTML = youtubeCard.follower_count;
