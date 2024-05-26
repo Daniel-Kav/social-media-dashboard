@@ -31,19 +31,15 @@ async function getGithubFollowerCount(username) {
 fetch('http://localhost:3000/header')
   .then(response => response.json())
   .then(data => {
-  
-    const headerinfo = data.title ;
     document.getElementById('header').innerHTML = `
       <div class="header">
           <h1 class="title light">${data.title}</h1>
           <p class="total-followers">Total Followers: ${data.total_followers}</p>
           <hr class="solid">
         </div>`
-    
-    console.log(headerinfo);
   })
   .catch(error => {
-    console.error('Error fetching Twitter card data:', error);
+    console.error('Error fetching header data:', error);
   });
 
 
@@ -53,8 +49,10 @@ fetch('http://localhost:3000/cards')
   .then(data => {
     // Filter the data to get the specific  card
     const twitterCard = data.find(card => card.platform === 'twitter');
-    const instagramCard = data.find(card => card.platform === 'instagram');
     const facebookCard = data.find(card => card.platform === 'facebook');
+
+    const instagramCard = data.find(card => card.platform === 'instagram');
+    // const facebookCard = data.find(card => card.platform === 'facebook');
     const youtubeCard = data.find(card => card.platform === 'youtube');
     
     // Use the Twitter card data as needed
@@ -85,14 +83,17 @@ fetch('http://localhost:3000/cards')
 fetch('http://localhost:3000/overview_today')
   .then(response => response.json())
   .then(data => {
-    // Filter the data to get the Twitter card
+    // Filter the data to get the pageview
     const pageviews = data[1];
+    document.getElementById('fbupdate').innerHTML = pageviews.update;
+    document.getElementById('fbchange').innerHTML = pageviews.percent_change;
+
     
-    // Use the Twitter card data as needed
-    console.log(pageviews);
+    
+    console.log(pageviews.platform);
   })
   .catch(error => {
-    console.error('Error fetching Twitter card data:', error);
+    console.error('Error fetching overview  data:', error);
   });
 
 
